@@ -1,16 +1,18 @@
 # pngfuck
-Fucks up pngs. Shuffle or apply cellular automata transformations to the pixels in a PNG
+Shuffle around pixels, or apply cellular automata transformations to pixels in a PNG. More effects likely to come :)
 
 
+Skip to [Usage](#usage)
 
-<div style="display: grid; grid-template-columns: repeat(4,1fr)" >
+## Demo
+<div style="display: grid; grid-template-columns: repeat(1,1fr); gap: 5px; font-weight: bold; text-align: center; " >
     <span>Original Image</span>
+    <img src ="https://firebasestorage.googleapis.com/v0/b/storeshit.appspot.com/o/fuckpng%2Fgti.png?alt=media&token=dd8869d0-769b-42b6-829d-088e0e54ab11">
     <span>Shuffled Only</span>
+    <img src ="https://firebasestorage.googleapis.com/v0/b/storeshit.appspot.com/o/fuckpng%2Fexample_shuffle.png?alt=media&token=9c836053-3d5b-4d09-a396-6374a0bd2a8e">
     <span>Cellular Only</span>
+    <img src ="https://firebasestorage.googleapis.com/v0/b/storeshit.appspot.com/o/fuckpng%2Fexample_cellular.png?alt=media&token=9a93f958-47e7-4536-9795-9f88e3d3f923">
     <span>Shuffled + Cellular </span>
-    <img src ="./examples/gti.png">
-    <img src ="./examples/example_shuffle.png">
-    <img src ="./examples/example_cellular.png">
     <img src ="./examples/example_both.png">
 
 
