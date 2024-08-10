@@ -13,6 +13,10 @@ let args;
 try { args = parseArgs(); } 
 catch (error){ panic(error); }
 
+
+
+
+
 (async function main(){
 	if(!args.img) panic("Required --img not set...");
 	let pipeline = [] 

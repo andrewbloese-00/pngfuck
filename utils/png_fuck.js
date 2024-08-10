@@ -34,6 +34,7 @@ exports.shufflePNG = (png,rate=0.5) => {
 	let match = -1
 	for(let y = 0; y < png.height; y++){
 		for(let x = 0; x < png.width; x++ ){
+			
 			const idx = (png.width * y + x) << 2;
 			if(Math.random() > rate) continue;
 			if(match < 0) {
@@ -100,8 +101,6 @@ function decreaseRGB(data,idx,decreaseAmt){
  * @param {PNG} png
  */
 exports.cellular = (png, nTicks=1,rule=DEFAULT_CELLULAR_RULE) => {
-	
-
 	console.time(`Cellular Effect * ${nTicks}`)
 	for(let t = 0; t < nTicks; t++){
 		//get copy of cell states to perform calculations on the 'tick'
@@ -145,5 +144,6 @@ exports.cellular = (png, nTicks=1,rule=DEFAULT_CELLULAR_RULE) => {
 		}
 	}
 	console.timeEnd(`Cellular Effect * ${nTicks}`)
+
 
 }
