@@ -13,9 +13,7 @@ Skip to [Usage](#usage)
     <span>Cellular Only</span>
     <img src ="https://firebasestorage.googleapis.com/v0/b/storeshit.appspot.com/o/fuckpng%2Fexample_cellular.png?alt=media&token=9a93f958-47e7-4536-9795-9f88e3d3f923">
     <span>Shuffled + Cellular </span>
-    <img src ="./examples/example_both.png">
-
-
+    <img src ="https://firebasestorage.googleapis.com/v0/b/storeshit.appspot.com/o/fuckpng%2Fexample_both.png?alt=media&token=fae893f0-43c6-4350-bfd7-5ddb8c04770d">
 </div>
 
 
