@@ -83,11 +83,10 @@ function getRGBA(data,idx){
 	return { r,g,b,a}
 }
 
-function setRGB(data,idx, r,g,b,a){
+function setRGB(data,idx, r,g,b){
 	data[idx] = r;
 	data[idx+1] = g;
 	data[idx+2] = b;
-	data[idx+3] = a; 
 }
 
 function decreaseRGB(data,idx,decreaseAmt){
@@ -147,3 +146,87 @@ exports.cellular = (png, nTicks=1,rule=DEFAULT_CELLULAR_RULE) => {
 
 
 }
+
+
+/**
+ * 
+ * @param {PNG} png 
+ */
+exports.verticals = (png , scalar=2 , chance=0.3) => {
+	for(let x = 0; x < png.width; x++){
+		if(Math.random() < chance){
+			let y = Math.random() * png.height;
+			const len = Math.random()*png.height;
+			const end = Math.min(png.height, y+len)
+			while(y < end && y < png.height){
+				const idx = (png.width * y + x) << 2;
+				png.data[idx] *= scalar
+				png.data[idx+1] *= scalar
+				png.data[idx+2] *= scalar
+				y++;
+			}
+		}
+	}
+}
+
+/**
+ * @param {PNG} png 
+ */
+exports.horizontals = (png , scalar=2 , chance=0.3) => {
+	for(let y = 0; y < png.height; y++){
+		if(Math.random() < chance){
+			let x = Math.random() * png.width;
+			const len = Math.random()*png.width;
+			const end = Math.min(png.width, x+len)
+			while(x < end && x < png.width){
+				const idx = (png.width * y + x) << 2;
+				png.data[idx] *= scalar
+				png.data[idx+1] *= scalar
+				png.data[idx+2] *= scalar
+				x++;
+			}
+		}
+	}
+}
+
+
+exports.pixelate = (png,cellPx=5) => {
+	for(let y = 0; y < png.height; y+=cellPx){
+		for(let x = 0; x < png.width; x+=cellPx){
+			//sum the rgb values in 'neighborhood' 
+			let count = 0, acc = { r: 0, g: 0, b:0 }
+			for(let k = 0; k < cellPx; k++){
+				for(let j = 0; j < cellPx; j++ ){
+					const i = (png.width*(y+k) + (x+j)) << 2
+					if(i > png.data.length) break
+					const {r,g,b} = getRGBA(png.data,i)
+					acc.r += r;
+					acc.g += g;
+					acc.b += b;
+					count++
+				}	
+			}
+			//determine average
+			acc.r /= count;
+			acc.g /= count;
+			acc.b /= count;
+
+			//apply the average values to neighborhood
+			for(let k = 0; k < cellPx; k++){
+				for(let j = 0; j < cellPx; j++ ){
+					const i = (png.width*(y+k) + (x+j)) << 2
+					if(i > png.data.length) break
+					if(isNaN(acc.r) || isNaN(acc.g) || isNaN(acc.b)) break;
+					setRGB(png.data,i,~~acc.r,~~acc.g,~~acc.b)
+				}	
+			}
+		}
+	}
+
+
+
+}
+
+
+
+

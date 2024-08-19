@@ -30,7 +30,10 @@ Skip to [Usage](#usage)
 * `--shuffle <n>` - perform a shuffle operation `n` times on the source image
 * `--cellular <rule>` - sets the cellular automata spawn, survival and state rules. 
 * `--nTicks <n>` - the number of times to run the cellular transformation
-* `--order <first,second>` - specify order of multiple transformations
+* `--order <first,...,nth>` - specify order of multiple transformations
+* `--horiz <rgb multiplier>` - create horizontal bands of multiplied rgb values semi-randomly in the img. 
+* `--verts <rgb multiplier>` - create vertical bands of multiplied rgb values semi-randomly in img. 
+* `--pixelate <px>` - pixelate the image providing a 'block' size in pixels. Averages the rgb values in square blocks to give a pixelated effect.
 
 ### Examples
 1. **Shuffle**
@@ -67,8 +70,28 @@ Examples (2) + (1) ; cellular transformation first, then shuffle
         --order cellular,shuffle
 ```
 
+5. ** Vertical Lines **
+Applies a random height and position vertical stripe (multiplies the rgb value by specified scalar). The below example doubles the rgb value of the pixels in the stripe. 
+```bash
+    pngfuck \
+        --img path/to/img.png \
+        --verts 2
 
+```
 
+6. ** Horizontal Lines **
+Applies a random width and position horizontal stripe (multiplies the rgb value by specified scalar). The below example doubles the rgb value of the pixels in the stripe. 
+```bash
+    pngfuck \
+        --img path/to/img.png \
+        --horiz 2
 
+```
 
-
+7. Pixelate 
+Uses provided size parameter to group square blocks of original pixels and average their color value in order to create a pixelated effect on the image. The following example uses 10x10 pixel square cells.  
+```bash
+    pngfuck \
+        --img path/to/img.png \
+        --pixelate 10
+```

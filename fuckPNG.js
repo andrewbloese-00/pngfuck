@@ -2,7 +2,7 @@
 const fs = require("fs")
 const parseArgs = require("./utils/argparser.js")
 const parseRule = require("./utils/cellularRuleParser.js")
-const {loadPNG, shufflePNG, cellular} = require("./utils/png_fuck.js")
+const {loadPNG, shufflePNG, cellular, verticals, horizontals, pixelate} = require("./utils/png_fuck.js")
 
 const panic = (...args) => {
 	console.error(...args);
@@ -40,7 +40,39 @@ catch (error){ panic(error); }
 		}
 	}
 
-	console.log(args)
+
+	if(args.verts) {
+		pipeline.push("verts");
+		try {
+			const n = Number(args.verts);
+			if(isNaN(n)) throw new Error("Invalid 'verts'. Expected a float 'rate'")
+			args.verts = n; 
+		} catch (error) {
+			panic(error)
+		}
+	}
+	if(args.horiz) {
+		pipeline.push("horiz");
+		try {
+			const n = Number(args.horiz);
+			if(isNaN(n)) throw new Error("Invalid 'horiz'. Expected a float 'rate'")
+			args.horiz = n; 
+		} catch (error) {
+			panic(error)
+		}
+	}
+
+	if(args.pixelate) { 
+		pipeline.push("pixelate");
+		try {
+			const n = parseInt(args.pixelate,10);
+			if(isNaN(n)) throw new Error("Invalid 'pixelate'. Expected an integer")
+			args.pixelate = n
+		} catch (error) {
+			panic(error)
+		}
+	}
+
 
 
 	
@@ -72,6 +104,26 @@ catch (error){ panic(error); }
 			cellular(loaded.png,args.nTicks, args.cellular)
 			console.timeEnd(`Cellular Transformation * ${args.nTicks}`)
 		}
+
+		if(action === "verts"){
+			const label = "'Verts' transformation: \n rate = " +  args.verts 
+			console.time(label)
+			verticals(loaded.png,4)
+			console.timeEnd(label)
+		}
+		if(action === "horiz"){
+			const label = "'Horiz' transformation: \n rate = " + args.horiz
+			console.time(label)
+			horizontals(loaded.png, args.horiz)
+			console.timeEnd(label)
+		}
+		if(action === "pixelate"){
+			const label = "'pixelate' transformation: \n cellPx = " + args.pixelate
+			console.time(label)
+			pixelate(loaded.png,args.pixelate)
+			console.timeEnd(label)
+		}
+
 	}
 
 	const suffix = pipeline.map(action=>{
