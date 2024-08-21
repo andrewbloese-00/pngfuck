@@ -1,5 +1,5 @@
 # pngfuck
-Shuffle around pixels, or apply cellular automata transformations to pixels in a PNG. More effects likely to come :)
+Various effects to fuck up a png. Shuffle pixels for a dissolving effect, apply glitched vertical or horizontal bars, or pixelate the image from the command line. 
 
 
 Skip to [Usage](#usage)
